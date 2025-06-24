@@ -1,0 +1,94 @@
+:root {
+  --main-color: #7f5af0;
+  --hover-color: #624cd1;
+}
+
+.signup-container {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #e0c3fc, #8ec5fc);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.signup-card {
+  background-color: #ffffffee;
+  padding: 40px;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  width: 550px !important;
+  backdrop-filter: blur(10px);
+  margin-top: 10px;
+}
+
+.errorSpan {
+  color: red;
+  font-size: 12px;
+  margin-left: 8px;
+}
+.signup-title {
+  text-align: center;
+  margin-bottom: 24px;
+  font-size: 28px;
+  color: #333;
+}
+
+.signup-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  margin-bottom: 6px;
+  color: #555;
+}
+
+.form-group input {
+  padding: 10px 14px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  outline: none;
+  transition: all 0.2s ease-in-out;
+}
+
+.form-group input:focus {
+  border-color: var(--main-color);
+  box-shadow: 0 0 0 3px rgba(145, 95, 226, 0.2);
+}
+
+.signup-button {
+  padding: 12px;
+  background-color: var(--main-color);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.signup-button:hover {
+  background-color: var(--hover-color);
+}
+
+.login-text {
+  margin-top: 14px;
+  font-size: 14px;
+  text-align: center;
+  color: #444;
+}
+
+.login-text a {
+  color: var(--hover-color);
+  text-decoration: none;
+}
+
+.login-text a:hover {
+  text-decoration: underline;
+}

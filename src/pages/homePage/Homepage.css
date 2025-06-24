@@ -1,0 +1,16 @@
+.nav-link:hover {
+  background-color: #fada7a;
+  border-radius: 8px;
+  color: #3674b5 !important;
+}
+
+/* .nav-link {
+  font-weight: bold;
+} */
+
+.PagesContainer {
+  overflow-y: scroll;
+  padding: 16px;
+  /* padding-bottom:x; */
+  background: linear-gradient(to right, #e0eafc, #cfdef3);
+}
