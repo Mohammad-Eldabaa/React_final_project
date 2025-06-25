@@ -3,6 +3,7 @@ import { Home, Login, SignUp } from '../pages';
 import ProfilePage from '../pages/users/profilePage';
 import UsersPage from '../pages/users/UsersPage';
 import MyPosts from '../pages/posts/myPosts';
+import ShowPost from '../pages/posts/showPost';
 
 const RoutesArray = [
   {
@@ -34,6 +35,11 @@ const RoutesArray = [
     id: v4(),
     element: <MyPosts />,
     path: '/myPosts',
+  },
+  {
+    id: v4(),
+    element: <ShowPost />,
+    path: '/showPost',
   },
 ];
 

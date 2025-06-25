@@ -4,6 +4,7 @@ import './Homepage.css';
 import UsersPage from '../users/UsersPage';
 import SideBar from '../../component/sideBar';
 import ShowAllPosts from '../posts/showAllPosts';
+import ShowPost from '../posts/showPost';
 
 export default function HomePage() {
   const [collapsed, setCollapsed] = useState(false);
@@ -13,6 +14,8 @@ export default function HomePage() {
   return (
     <div>
       <ShowAllPosts />
+
+      {/* <ShowPost /> */}
     </div>
   );
 }

@@ -9,7 +9,7 @@ export default function ProfilePage() {
 
   return (
     <div className="d-flex" style={{ height: '100vh', width: '100vr' }}>
-      <SideBar />
+      <SideBar current={'profile'} />
 
       <div style={{ padding: '16', width: '100%', height: '100%' }} className="PagesContainer">
         <div style={{ height: '100vh', background: 'linear-gradient(to right, #e0eafc, #cfdef3)' }}>

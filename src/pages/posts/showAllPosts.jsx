@@ -2,34 +2,14 @@ import React, { useEffect, useState } from 'react';
 import '../../bootstrap/bootstrap.css';
 import SideBar from '../../component/sideBar';
 import { addPost, getPosts } from '../../api/fetchApi';
+import { Link } from 'react-router-dom';
 
 export default function ShowAllPosts() {
   const [posts, setPosts] = useState([]);
-  const [rel, setRel] = useState('');
-  const post = {
-    title: 'How are you2',
-    content: 'React makes it painless to create interactive UIs...',
-    userId: 11,
-    sections: [
-      {
-        title: 'Frontend Development',
-        body: 'React makes it painless to create interactive UIs...',
-      },
-    ],
-  };
-  const addnewPost = async () => {
-    await addPost(post)
-      .then(res => {
-        console.log(res);
-        setRel(res.status);
-      })
-      .catch(e => {
-        console.log(e);
-      });
-  };
+  const cur = { current: 'Home' };
 
   const getAllPost = async () => {
-    await getPosts(post)
+    await getPosts()
       .then(res => {
         console.log(res);
         setPosts(res.data);
@@ -41,20 +21,29 @@ export default function ShowAllPosts() {
 
   useEffect(() => {
     getAllPost();
-  }, [rel]);
+  }, []);
 
   return (
     <div className=" d-flex" style={{ height: '100vh' }}>
-      <SideBar />
-      {/* <button onClick={addnewPost}>Add new post</button> */}
+      <SideBar current={'Home'} />
       <div
         className="container px-4 py-5"
-        style={{ background: 'linear-gradient(to right, #e0eafc, #cfdef3)', width: '100%' }}
+        style={{
+          background: 'linear-gradient(to right, #e0eafc, #cfdef3)',
+          width: '100%',
+          overflowY: 'scroll',
+        }}
       >
         <h1 className="text-center mb-5 text-primary fw-bold">📚 Show Posts</h1>
         <div className="row g-4">
           {posts.map(post => (
-            <div className="col-md-6 col-lg-4" key={post.id}>
+            <Link
+              to={'/showPost'}
+              state={{ post, cur }}
+              style={{ textDecoration: 'none' }}
+              className="col-md-6 col-lg-4"
+              key={post.id}
+            >
               <div className="card h-100 shadow-sm border-0">
                 <div className="card-body">
                   <h5 className="card-title text-primary">{post.title}</h5>
@@ -68,7 +57,7 @@ export default function ShowAllPosts() {
                   <span className="badge bg-info text-dark">#{post.id}</span>
                 </div>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       </div>

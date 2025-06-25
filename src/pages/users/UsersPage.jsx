@@ -25,7 +25,7 @@ export default function UsersPage() {
 
   return (
     <div className=" d-flex" style={{ height: '100vh' }}>
-      <SideBar />
+      <SideBar current={'All'} />
       <div style={{ padding: '16' }} className="PagesContainer">
         <div style={{ margin: 16 }}>
           <div className="container">

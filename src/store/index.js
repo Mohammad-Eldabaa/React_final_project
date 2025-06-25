@@ -1,8 +1,6 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { getUsers } from '../api/fetchApi';
-// import { refreshTokeAPI } from '../api/fetchApi';
-// import { isTokenExpire } from '../api';
 
 const useAuthStore = create(
   persist(
@@ -10,7 +8,7 @@ const useAuthStore = create(
       token: null,
       refreshToken: null,
       currentUser: {},
-      currentPage: 'home',
+      // currentPage: 'Home',
       loading: false,
       setTokens: tokens =>
         set(state => ({
@@ -18,7 +16,7 @@ const useAuthStore = create(
           ...tokens,
         })),
       clear: () => set({ token: null, refreshToken: null }),
-      MoveTo: page => set({ currentPage: page }),
+      // MoveTo: page => set({ currentPage: page }),
       getCurrentUser: async email => {
         await getUsers()
           .then(res => {

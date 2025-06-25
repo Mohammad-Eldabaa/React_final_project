@@ -2,16 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import '../bootstrap/bootstrap.css';
 import '../pages/homePage/HomePage';
-import useAuthStore from '../store';
 
-export default function SideBar() {
+export default function SideBar({ current }) {
   const colored = { backgroundColor: '#fada7a', borderRadius: '8px', color: ' #3674b5' };
-  const { currentPage, MoveTo } = useAuthStore();
-  const [pressed, setpressed] = useState(currentPage);
-  useEffect(() => {
-    setpressed(currentPage);
-    console.log(currentPage);
-  });
+  const [pressed, setpressed] = useState(current);
+
   return (
     <nav
       className={` text-light flex-shrink-0 p-3 border-end border-secondary`}
@@ -23,7 +18,6 @@ export default function SideBar() {
       <Link
         to="/home"
         className="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-decoration-none text-light"
-        onClick={() => MoveTo('Home')}
       >
         <span className="fs-4 fw-bold">Postat</span>
       </Link>
@@ -34,7 +28,6 @@ export default function SideBar() {
             to="/home"
             className="nav-link text-light"
             style={pressed === 'Home' ? { ...colored } : { color: 'white' }}
-            onClick={() => MoveTo('Home')}
           >
             <i className="bi bi-house me-2" />
             Home
@@ -46,7 +39,6 @@ export default function SideBar() {
             to="/myPosts"
             className="nav-link text-light"
             style={pressed === 'MyPosts' ? { ...colored } : { color: 'white' }}
-            onClick={() => MoveTo('MyPosts')}
           >
             <i className="bi bi-house me-2" />
             My posts
@@ -58,9 +50,6 @@ export default function SideBar() {
             to="/allUsers"
             className="nav-link text-light"
             style={pressed === 'All' ? { ...colored } : { color: 'white' }}
-            onClick={() => {
-              MoveTo('All');
-            }}
           >
             <i className="bi bi-people me-2" />
             All users
@@ -72,7 +61,6 @@ export default function SideBar() {
             to="/profile"
             className="nav-link"
             style={pressed === 'profile' ? { ...colored } : { color: 'white' }}
-            onClick={() => MoveTo('profile')}
           >
             <i className="bi bi-person-circle me-2" />
             Profile
@@ -83,7 +71,6 @@ export default function SideBar() {
             to="/Login"
             className="nav-link text-light"
             style={pressed === 'Logout' ? { ...colored } : { color: 'white' }}
-            onClick={() => MoveTo('Home')}
           >
             <i className="bi bi-box-arrow-right me-2" />
             Logout
@@ -93,7 +80,3 @@ export default function SideBar() {
     </nav>
   );
 }
-
-// background-color: #fada7a;
-//   border-radius: 8px;
-//   color: #3674b5 !important;

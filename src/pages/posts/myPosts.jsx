@@ -3,11 +3,14 @@ import '../../bootstrap/bootstrap.css';
 import SideBar from '../../component/sideBar';
 import useAuthStore from '../../store';
 import { addPost, getMyPosts, getPosts } from '../../api/fetchApi';
+import { Link } from 'react-router-dom';
+import AddPostModal from './addPostModal';
 
 export default function MyPosts() {
   const { currentUser } = useAuthStore();
   const [posts, setPosts] = useState([]);
   const [rel, setRel] = useState('');
+  const cur = { current: 'MyPosts' };
 
   const post = {
     title: 'How are you2',
@@ -25,14 +28,14 @@ export default function MyPosts() {
     try {
       const res = await addPost(post);
       console.log(res);
-      setRel(res.status); // triggers reload
+      setRel(res.status);
     } catch (e) {
       console.error(e);
     }
   };
 
   const getAllPost = async () => {
-    await getPosts(post)
+    await getPosts()
       .then(res => {
         console.log(res);
         setPosts(
@@ -46,35 +49,37 @@ export default function MyPosts() {
       });
   };
 
-  //   const fetchMyPosts = async () => {
-  //     try {
-  //       const res = await getMyPosts(currentUser.id);
-  //       setPosts(res.data);
-  //     } catch (e) {
-  //       console.error(e);
-  //     }
-  //   };
-
   useEffect(() => {
-    // if (currentUser?.id) fetchMyPosts();
     getAllPost();
   }, [rel]);
 
   return (
     <div className="d-flex" style={{ height: '100vh' }}>
-      <SideBar />
+      <SideBar current={'MyPosts'} />
+
       <div
         className="container px-4 py-5"
-        style={{ background: 'linear-gradient(to right, #e0eafc, #cfdef3)', width: '100%' }}
+        style={{
+          background: 'linear-gradient(to right, #e0eafc, #cfdef3)',
+          width: '100%',
+          overflowY: 'scroll',
+        }}
       >
         <h1 className="text-center mb-5 text-primary fw-bold">📚 My Posts</h1>
-        <button className="btn btn-primary mb-4" onClick={addnewPost}>
+        {/* <button className="btn btn-primary mb-4" onClick={addnewPost}>
           Add new post
-        </button>
+        </button> */}
+        <AddPostModal onPostAdded={() => setRel(Date.now())} />
         <div className="row g-4">
           {posts.map(post => (
-            <div className="col-md-6 col-lg-4" key={post.id}>
-              <div className="card h-100 shadow-sm border-0">
+            <Link
+              to={'/showPost'}
+              state={{ post, cur }}
+              style={{ textDecoration: 'none' }}
+              className="col-md-6 col-lg-4"
+              key={post.id}
+            >
+              <div className="card h-100 shadow-sm border-0 ">
                 <div className="card-body">
                   <h5 className="card-title text-primary">{post.title}</h5>
                   <h6 className="card-subtitle mb-2 text-muted">
@@ -88,7 +93,7 @@ export default function MyPosts() {
                   <span className="badge bg-info text-dark">#{post.id}</span>
                 </div>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       </div>
