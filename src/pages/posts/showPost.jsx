@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import '../../bootstrap/bootstrap.css'; // Your custom Bootstrap CSS
 import SideBar from '../../component/sideBar';
-import useAuthStore from '../../store';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { deletePost } from '../../api/fetchApi';
 import EditPostModal from './editPostModal';
@@ -38,19 +37,24 @@ const ShowPost = () => {
         <div className="card shadow-lg border-0 rounded-4">
           <div className="card-body">
             <h2 className="text-primary mb-3">{post.title}</h2>
-            <p className="text-muted">{post.content}</p>
 
             {post.sections.map((section, idx) => (
               <div key={idx} className="my-4">
                 <h4 className="text-secondary">{section.title}</h4>
-                <p>{section.body}</p>
               </div>
             ))}
 
+            <p>{post.content}</p>
             {cur.current === 'MyPosts' ? (
               <div className="row mt-4">
                 <div className="col-12 col-md-6 mb-2">
-                  <button className="btn btn-outline-danger w-100" onClick={removePost}>
+                  <button
+                    className="btn btn-outline-danger w-100"
+                    onClick={() => {
+                      const del = window.confirm('Are you sure you want to delete this post?');
+                      if (del) removePost();
+                    }}
+                  >
                     Delete
                   </button>
                 </div>

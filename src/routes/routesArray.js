@@ -1,9 +1,5 @@
 import { v4 } from 'uuid';
-import { Home, Login, SignUp } from '../pages';
-import ProfilePage from '../pages/users/profilePage';
-import UsersPage from '../pages/users/UsersPage';
-import MyPosts from '../pages/posts/myPosts';
-import ShowPost from '../pages/posts/showPost';
+import { Home, Login, SignUp, ProfilePage, UsersPage, MyPosts, ShowPost } from '../pages';
 
 const RoutesArray = [
   {
@@ -14,12 +10,12 @@ const RoutesArray = [
   {
     id: v4(),
     element: <Login />,
-    path: '/Login',
+    path: '/',
   },
   {
     id: v4(),
     element: <SignUp />,
-    path: '/',
+    path: '/signUp',
   },
   {
     id: v4(),

@@ -47,12 +47,11 @@ export default function ProfilePage() {
                     </div>
                   </div>
                   <div className="text-center mt-3">
-                    {/* <button className="btn btn-outline-primary me-2 col-3">Edit</button> */}
                     <button
                       className="btn btn-outline-danger col-3"
                       onClick={() => {
                         localStorage.clear();
-                        window.location.replace('/Login');
+                        window.location.replace('/');
                       }}
                     >
                       Logout

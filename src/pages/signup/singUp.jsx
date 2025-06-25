@@ -19,7 +19,7 @@ export default function SignUpPage() {
       .then(res => {
         console.log(res);
         reset();
-        navigate('/Login');
+        navigate('/');
       })
       .catch(error => {
         console.log(error);
@@ -102,7 +102,7 @@ export default function SignUpPage() {
 
           <input type="submit" value="Sign Up" className="signup-button" onClick={() => {}} />
           <p className="login-text">
-            Already have an account? <Link to="/Login">Log in</Link>
+            Already have an account? <Link to="/">Log in</Link>
           </p>
         </form>
       </div>

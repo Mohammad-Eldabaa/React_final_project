@@ -1,7 +1,7 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect } from 'react';
 import './LoginPage.css';
 import { Link, useNavigate } from 'react-router-dom';
-import { useForm, useWatch } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import loginSchema from './loginSchema';
 import { loginApi } from '../../api/fetchApi';
@@ -28,12 +28,10 @@ export default function LoginPage() {
   const inputs = watch();
 
   const onsubmit = async data => {
-    // console.log(inputs);
     loginApi(data)
       .then(res => {
         setTokens(res.data);
         getCurrentUser(inputs.email);
-        // MoveTo('profile');
         reset();
         navigate('/home');
       })
@@ -76,7 +74,7 @@ export default function LoginPage() {
 
           <input type="submit" value="Log In" className="login-button" />
           <p className="signup-text">
-            Don't have an account? <Link to="/">Sign up</Link>
+            Don't have an account? <Link to="/signUp">Sign up</Link>
           </p>
         </form>
       </div>

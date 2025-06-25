@@ -2,37 +2,28 @@ import React, { useState, useEffect } from 'react';
 import { addPost } from '../../api/fetchApi';
 import '../../bootstrap/bootstrap.css';
 import useAuthStore from '../../store';
+import { useForm } from 'react-hook-form';
 
 export default function AddPostModal({ onPostAdded }) {
   const { currentUser } = useAuthStore();
   const [showModal, setShowModal] = useState(false);
-  const [formData, setFormData] = useState({
-    title: '',
-    section: '',
-    content: '',
-  });
+  const { register, handleSubmit, reset } = useForm();
 
   useEffect(() => {
     document.body.style.overflow = showModal ? 'hidden' : 'auto';
   }, [showModal]);
 
-  const handleChange = e => {
-    setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
-  };
-
-  const handleSubmit = async e => {
-    e.preventDefault();
+  const onsubmit = async data => {
     const newPost = {
-      title: formData.title,
-      content: formData.content,
+      title: data.title,
+      content: data.content,
       userId: currentUser.id,
-      sections: [{ title: formData.section, body: formData.content }],
+      sections: [{ title: data.section, body: data.content }],
     };
-
     try {
       await addPost(newPost);
       onPostAdded();
-      setFormData({ title: '', section: '', content: '' });
+      reset();
       setShowModal(false);
     } catch (err) {
       console.error('Failed to add post:', err);
@@ -57,7 +48,7 @@ export default function AddPostModal({ onPostAdded }) {
           >
             <div className="modal-dialog modal-dialog-centered" role="document">
               <div className="modal-content">
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={handleSubmit(onsubmit)}>
                   <div className="modal-header">
                     <h5 className="modal-title">Add New Post</h5>
                     <button
@@ -73,9 +64,7 @@ export default function AddPostModal({ onPostAdded }) {
                         type="text"
                         className="form-control"
                         name="title"
-                        value={formData.title}
-                        onChange={handleChange}
-                        required
+                        {...register('title', { required: true })}
                       />
                     </div>
                     <div className="mb-3">
@@ -84,9 +73,7 @@ export default function AddPostModal({ onPostAdded }) {
                         type="text"
                         className="form-control"
                         name="section"
-                        value={formData.section}
-                        onChange={handleChange}
-                        required
+                        {...register('section', { required: true })}
                       />
                     </div>
                     <div className="mb-3">
@@ -95,9 +82,7 @@ export default function AddPostModal({ onPostAdded }) {
                         className="form-control"
                         name="content"
                         rows="3"
-                        value={formData.content}
-                        onChange={handleChange}
-                        required
+                        {...register('content', { required: true })}
                       ></textarea>
                     </div>
                   </div>

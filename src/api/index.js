@@ -53,7 +53,7 @@ APICALL.interceptors.response.use(
   error => {
     console.log(error);
     if (error.response.status === 401) {
-      window.location.replace('/Login');
+      window.location.replace('/');
     }
     return Promise.reject(error);
   }

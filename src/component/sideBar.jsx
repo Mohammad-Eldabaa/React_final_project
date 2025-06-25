@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import '../bootstrap/bootstrap.css';
 import '../pages/homePage/HomePage';
@@ -68,7 +68,7 @@ export default function SideBar({ current }) {
         </li>
         <li>
           <Link
-            to="/Login"
+            to="/"
             className="nav-link text-light"
             style={pressed === 'Logout' ? { ...colored } : { color: 'white' }}
           >

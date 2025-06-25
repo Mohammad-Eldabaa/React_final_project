@@ -62,7 +62,11 @@ export default function MyPosts() {
                     Section:{' '}
                     <span className="fw-normal">{post.sections?.[0]?.title || 'Error'}</span>
                   </h6>
-                  <p className="card-text">{post.content}</p>
+                  <p className="card-text">
+                    {post.content.length > 40
+                      ? post.content.substring(0, 40) + '.......'
+                      : post.content}
+                  </p>
                 </div>
                 <div className="card-footer bg-white border-top-0 d-flex justify-content-between align-items-center">
                   <small className="text-muted">User ID: {post.userId}</small>

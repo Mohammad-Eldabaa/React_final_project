@@ -15,7 +15,7 @@ export default function UsersPage() {
       })
       .catch(e => {
         console.log(e);
-        if (e.status === 401) navigate('/Login');
+        if (e.status === 401) navigate('/');
       });
   };
 
@@ -24,10 +24,10 @@ export default function UsersPage() {
   }, []);
 
   return (
-    <div className=" d-flex" style={{ height: '100vh' }}>
+    <div className=" d-flex" style={{ height: '100vh', width: '100%' }}>
       <SideBar current={'All'} />
-      <div style={{ padding: '16' }} className="PagesContainer">
-        <div style={{ margin: 16 }}>
+      <div style={{ padding: '16px', width: '100%' }} className="PagesContainer">
+        <div style={{ margin: '16px' }}>
           <div className="container">
             <h1 className="text-center fw-bold mb-5" style={{ color: '#3674B5' }}>
               Users Page
@@ -85,7 +85,7 @@ export default function UsersPage() {
               ))}
             </div>
           </div>
-          {users.length == 0 ? (
+          {users.length === 0 ? (
             <h2 className="text-center text-danger fw-bold mb-5" style={{ marginTop: '180px' }}>
               This page is empty
             </h2>
