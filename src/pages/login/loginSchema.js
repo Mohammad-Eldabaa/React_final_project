@@ -23,7 +23,12 @@ export const signupSchema = yup.object({
   phone: yup
     .string()
     .min(11, 'you entered less than 11 number')
-    .max(11, 'you entered more than 11 number'),
+    .max(11, 'you entered more than 11 number')
+    .required('Please enter your phone'),
+
+  avatar: yup.mixed().test('required', 'Please upload an image less Than 5M', value => {
+    return value && value.length > 0;
+  }),
 });
 
 export default loginSchema;

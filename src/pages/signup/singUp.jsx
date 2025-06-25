@@ -7,6 +7,15 @@ import { signupSchema } from '../login/loginSchema';
 import { signupApi } from '../../api/fetchApi';
 
 export default function SignUpPage() {
+  const convertToBase64 = file => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = error => reject(error);
+    });
+  };
+
   const navigate = useNavigate();
   const {
     register,
@@ -15,7 +24,9 @@ export default function SignUpPage() {
     formState: { errors },
   } = useForm({ resolver: yupResolver(signupSchema) });
   const onsubmit = async data => {
-    await signupApi(data)
+    const image = await convertToBase64(data.avatar[0]);
+    const data2 = { ...data, avatar: image };
+    await signupApi(data2)
       .then(res => {
         console.log(res);
         reset();
@@ -25,6 +36,8 @@ export default function SignUpPage() {
         console.log(error);
         error.request.status === 500
           ? alert('This email already existed.')
+          : error.request.status === 413
+          ? alert('Please upload image less than 5M.')
           : alert('something went wrong');
       })
       .finally(() => console.log('finally'));
@@ -82,11 +95,12 @@ export default function SignUpPage() {
             <label htmlFor="avatar">Avatar URL</label>
             <input
               id="avatar"
-              type="text"
-              placeholder="https://example.com/avatar.png"
+              type="file"
+              accept="image/*"
+              className={`form-control`}
               {...register('avatar', { required: true })}
             />
-            {errors.avatar && <span className="errorSpan">please add an avatar.</span>}
+            {errors.avatar && <span className="errorSpan">please add an image.</span>}
           </div>
 
           <div className="form-group">

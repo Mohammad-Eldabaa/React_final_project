@@ -72,7 +72,10 @@ export default function UsersPage() {
                             'Are you sure you want to delete this user?'
                           );
                           if (result) {
-                            await deleteUser(user.id);
+                            await deleteUser(user.id).catch(e => {
+                              console.log(e);
+                              if (e.status === 500) window.alert("You can't remove current user");
+                            });
                             getAllUsers();
                           }
                         }}
