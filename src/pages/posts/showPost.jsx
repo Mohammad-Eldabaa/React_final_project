@@ -1,21 +1,17 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import '../../bootstrap/bootstrap.css'; // Your custom Bootstrap CSS
 import SideBar from '../../component/sideBar';
 import useAuthStore from '../../store';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { deletePost } from '../../api/fetchApi';
+import EditPostModal from './editPostModal';
 
 const ShowPost = () => {
   const location = useLocation();
   const { post, cur } = location.state || {};
   const navigate = useNavigate();
 
-  const handleEdit = () => {
-    alert('Edit post');
-  };
-
   const removePost = () => {
-    console.log(post.id);
     deletePost(post.id)
       .then(() => {
         navigate(-1);
@@ -51,18 +47,25 @@ const ShowPost = () => {
               </div>
             ))}
 
-            <div className="row mt-4">
-              <div className="col-12 col-md-6 mb-2">
-                <button className="btn btn-outline-danger w-100" onClick={removePost}>
-                  Delete
-                </button>
+            {cur.current === 'MyPosts' ? (
+              <div className="row mt-4">
+                <div className="col-12 col-md-6 mb-2">
+                  <button className="btn btn-outline-danger w-100" onClick={removePost}>
+                    Delete
+                  </button>
+                </div>
+                <div className="col-12 col-md-6">
+                  <EditPostModal
+                    onPostAdded={() => {
+                      navigate(-1);
+                    }}
+                    item={post}
+                  />
+                </div>
               </div>
-              <div className="col-12 col-md-6">
-                <button className="btn btn-primary w-100" onClick={handleEdit}>
-                  Edit
-                </button>
-              </div>
-            </div>
+            ) : (
+              <></>
+            )}
           </div>
         </div>
       </div>

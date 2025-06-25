@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import '../../bootstrap/bootstrap.css';
 import SideBar from '../../component/sideBar';
-import { addPost, getPosts } from '../../api/fetchApi';
+import { getPosts } from '../../api/fetchApi';
 import { Link } from 'react-router-dom';
 
 export default function ShowAllPosts() {

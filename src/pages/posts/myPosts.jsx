@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import '../../bootstrap/bootstrap.css';
 import SideBar from '../../component/sideBar';
 import useAuthStore from '../../store';
-import { addPost, getMyPosts, getPosts } from '../../api/fetchApi';
+import { getPosts } from '../../api/fetchApi';
 import { Link } from 'react-router-dom';
 import AddPostModal from './addPostModal';
 
@@ -11,28 +11,6 @@ export default function MyPosts() {
   const [posts, setPosts] = useState([]);
   const [rel, setRel] = useState('');
   const cur = { current: 'MyPosts' };
-
-  const post = {
-    title: 'How are you2',
-    content: 'React makes it painless to create interactive UIs...',
-    userId: currentUser.id,
-    sections: [
-      {
-        title: 'Frontend Development',
-        body: 'React makes it painless to create interactive UIs...',
-      },
-    ],
-  };
-
-  const addnewPost = async () => {
-    try {
-      const res = await addPost(post);
-      console.log(res);
-      setRel(res.status);
-    } catch (e) {
-      console.error(e);
-    }
-  };
 
   const getAllPost = async () => {
     await getPosts()
@@ -66,9 +44,7 @@ export default function MyPosts() {
         }}
       >
         <h1 className="text-center mb-5 text-primary fw-bold">📚 My Posts</h1>
-        {/* <button className="btn btn-primary mb-4" onClick={addnewPost}>
-          Add new post
-        </button> */}
+
         <AddPostModal onPostAdded={() => setRel(Date.now())} />
         <div className="row g-4">
           {posts.map(post => (

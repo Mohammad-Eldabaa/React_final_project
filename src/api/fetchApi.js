@@ -17,3 +17,5 @@ export const getPosts = async () => await APICALL.get('/posts');
 export const getPostById = async id => await APICALL.get(`/posts/${id}`);
 
 export const deletePost = async id => await APICALL.delete(`/posts/${id}`);
+
+export const editPost = async (id, data) => await APICALL.put(`/posts/${id}`, { ...data });
